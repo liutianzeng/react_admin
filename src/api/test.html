@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用jQuery-AJAX--读取获得跨域JSONP数据</title>
+<!--    <script src="./jquery-1.7.2.js" type="text/javascript"></script>-->
+    <style type="text/css">
+        body,html{font-family: "Microsoft Yahei";}
+        a{text-decoration: none;}
+    </style>
+</head>
+<body>
+<h2><a href="javascript:void(0)" class="btnAJAX">点击AJAX获取数据JSONP跨域....</a></h2>
+<script src="jquery.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".btnAJAX").click(function() {
+           $.ajax({
+               url:"http://weather.123.duba.net/static/weather_info/101121301.html",
+               type:"get",
+               dataType:"json",
+               async:false,
+               success:function (data) {
+                   console.log(data);
+               }
+           })
+        })
+    });
+</script>
+</body>
+</html>
