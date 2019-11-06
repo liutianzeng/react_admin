@@ -21,8 +21,37 @@
 </style>
 <body>
 <div class="root">
-    334
-    <img src="../src/pages/login/image/bg.jpg" alt="">
+    name
 </div>
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.js"></script>
+<script>
+
+    let url="http://localhost:5000/login";
+    let data={
+        username:"admin",
+        password:"admin"
+    };
+    function getMessage(){
+
+    }
+            $.ajax({
+                type:"get",
+                url:url,
+                data:data,
+                dataType:"jsonp",
+                success:function (data) {
+                    console.log(data);
+                    // resolve(data);
+                },
+                error:function (err) {
+                       // reject(err);
+                }
+            })
+
+    let promise=ajax(url,data);//注意这里返回的是promise对象
+    promise.then((data)=>{
+        console.log(data);
+    })
+</script>
 </body>
 </html>

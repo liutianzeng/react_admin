@@ -1,7 +1,8 @@
 import React from 'react'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import {reqLogin} from "../../api";
-import {user} from '../../utils/memory'
+import storage from '../../utils/storageUtil'
+import {Redirect} from "react-router-dom"
 
 
 class LoginForm extends React.Component {
@@ -11,11 +12,14 @@ class LoginForm extends React.Component {
         form.validateFields(async (err,value)=>{
             if(!err){
                 const {username,password}=value;
-                // localStorage.setItem("name",JSON.stringify(value));
-                localStorage.removeItem("name");
                 const result=await reqLogin(username,password);
-                user=result;
-
+                if(result.status===0){
+                    console.log("登录成功",result);
+                    storage.saveUser(value);
+                    this.props.history.replace('./');
+                }else{
+                    console.log(result.msg);
+                }
             }else{
                 console.log(err);
             }
@@ -30,8 +34,8 @@ class LoginForm extends React.Component {
                         rules: [
                             {message: 'Please input your username!' },
                             {message: 'must less than 10 numbers',max:10 },
-                            {message: 'must more than 6 numbers',min:6},
-                            {message:"must numbers",pattern:/^[0-9]*$/}
+                            {message: 'must more than 5 numbers',min:5},
+                            {message:"must numbers",pattern:/^[a-zA-Z0-9]*$/}
                         ],
                     })(
                         <Input
